@@ -4,8 +4,10 @@ namespace WebApi.Requests;
 
 public class RequestConsumer : IConsumer<Request>
 {
-    public Task Consume(ConsumeContext<Request> context)
+    public async Task Consume(ConsumeContext<Request> context)
     {
-        throw new NotImplementedException();
+        await Task.Delay(1000);
+        var request = context.Message;
+        context.RespondAsync<Response>(new Response("Query Response"));
     }
 }
