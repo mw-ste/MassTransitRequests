@@ -8,6 +8,6 @@ public class RequestConsumer : IConsumer<Request>
     {
         await Task.Delay(1000);
         var request = context.Message;
-        context.RespondAsync<Response>(new Response("Query Response"));
+        await context.RespondAsync(new Response("Query Response"));
     }
 }
