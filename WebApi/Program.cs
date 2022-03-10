@@ -1,32 +1,42 @@
+using ContextA.Infrastructure;
+using Infrastructure;
 using MassTransit;
-using WebApi.Requests;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var setups = new List<IContextSetup>
+{
+    new ContextASetup()
+};
+
+setups.ForEach(setup => setup.RegisterServices(builder.Services));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddMassTransit(x =>
     {
-        x.AddConsumer<RequestConsumer>();
+        setups.ForEach(setup =>
+        {
+            setup.ProvidedQueries.ToList().ForEach(providedQuery =>
+            {
+                x.AddConsumer(providedQuery.HandlerType);
+                x.AddRequestClient(providedQuery.RequestType);
+            });
+        });
 
         x.UsingInMemory((context, cfg) =>
         {
             cfg.ConfigureEndpoints(context);
         });
 
-        x.AddRequestClient<Request>();
     })
     .AddMassTransitHostedService();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -34,9 +44,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
