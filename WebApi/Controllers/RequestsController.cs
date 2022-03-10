@@ -1,27 +1,25 @@
-using ContextA.Contracts;
-
 namespace WebApi.Controllers;
 
-using Shared;
-using MassTransit;
+using ContextA.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 
 [ApiController]
 [Route("[controller]")]
 public class RequestsController : ControllerBase
 {
-    private readonly IRequestClient<DummyRequest> _requestClient;
+    private readonly IRequester<DummyRequest, DummyResponse> _requester;
 
-    public RequestsController(IRequestClient<DummyRequest> requestClient)
+    public RequestsController(IRequester<DummyRequest, DummyResponse> requester)
     {
-        _requestClient = requestClient;
+        _requester = requester;
     }
 
     [HttpGet(Name = nameof(Get))]
     public async Task<string> Get()
     {
-        var response = await _requestClient.GetResponse<DummyResponse>(new DummyRequest("RequestId", "abcdef"));
-        return response.Message.ResponseContent;
-        //return "hardcoded string";
+        var request = new DummyRequest("RequestId", "abcdef");
+        var response = await _requester.Get(request);
+        return response.ResponseContent;
     }
 }

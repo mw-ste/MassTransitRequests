@@ -1,6 +1,7 @@
 using ContextA.Infrastructure;
 using Infrastructure;
 using MassTransit;
+using Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,7 @@ var setups = new List<IContextSetup>
 };
 
 setups.ForEach(setup => setup.RegisterServices(builder.Services));
-
+builder.Services.AddTransient(typeof(IRequester<,>), typeof(MassTransitRequester<,>));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
