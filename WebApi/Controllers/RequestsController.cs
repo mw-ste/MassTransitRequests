@@ -8,9 +8,9 @@ using Shared;
 [Route("[controller]")]
 public class RequestsController : ControllerBase
 {
-    private readonly IRequester<DummyRequest, DummyResponse> _requester;
+    private readonly IRequester<ExampleRequest, ExampleResponse> _requester;
 
-    public RequestsController(IRequester<DummyRequest, DummyResponse> requester)
+    public RequestsController(IRequester<ExampleRequest, ExampleResponse> requester)
     {
         _requester = requester;
     }
@@ -18,7 +18,7 @@ public class RequestsController : ControllerBase
     [HttpGet(Name = nameof(Get))]
     public async Task<string> Get()
     {
-        var request = new DummyRequest("RequestId", "abcdef");
+        var request = new ExampleRequest("RequestId", "abcdef");
         var response = await _requester.Get(request);
         return response.ResponseContent;
     }

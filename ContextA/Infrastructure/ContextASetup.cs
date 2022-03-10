@@ -10,9 +10,9 @@ public class ContextASetup : IContextSetup
     {
     }
 
-    public IEnumerable<IProvidedQuery> ProvidedQueries { get; } =
-        new List<IProvidedQuery>
+    public IEnumerable<IRequestRegistration> RequestRegistrations { get; } =
+        new List<IRequestRegistration>
         {
-            new ProvidedQuery<DummyQueryHandler, DummyRequest>()
+            new RequestRegistration<ExampleRequestHandler, ExampleRequest>()
         };
 }

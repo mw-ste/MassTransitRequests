@@ -1,8 +1,8 @@
 ﻿namespace Shared;
 
-public abstract class QueryResponse
+public abstract class Response
 {
-    protected QueryResponse(string requestId)
+    protected Response(string requestId)
     {
         RequestId = requestId;
     }

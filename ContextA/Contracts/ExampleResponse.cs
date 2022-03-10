@@ -2,11 +2,11 @@
 
 namespace ContextA.Contracts;
 
-public class DummyResponse : QueryResponse
+public class ExampleResponse : Response
 {
     public string ResponseContent { get; }
 
-    public DummyResponse(
+    public ExampleResponse(
         string requestId, 
         string responseContent) 
         : base(requestId)

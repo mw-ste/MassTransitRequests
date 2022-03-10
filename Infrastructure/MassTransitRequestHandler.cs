@@ -1,12 +1,13 @@
 ﻿using MassTransit;
 using Shared;
+using Response = Shared.Response;
 
 namespace Infrastructure;
 
 public abstract class MassTransitRequestHandler<TRequest, TResponse>
-    : IConsumer<TRequest>, IQueryHandler<TRequest, TResponse>
-    where TRequest : QueryRequest
-    where TResponse : QueryResponse
+    : IConsumer<TRequest>, IRequestHandler<TRequest, TResponse>
+    where TRequest : Request
+    where TResponse : Response
 {
     public async Task Consume(ConsumeContext<TRequest> context)
     {

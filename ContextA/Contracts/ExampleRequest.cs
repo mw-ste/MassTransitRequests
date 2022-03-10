@@ -2,11 +2,11 @@
 
 namespace ContextA.Contracts;
 
-public class DummyRequest : QueryRequest
+public class ExampleRequest : Request
 {
     public string RequestContent { get; }
 
-    public DummyRequest(
+    public ExampleRequest(
         string requestId, 
         string requestContent) 
         : base(requestId)

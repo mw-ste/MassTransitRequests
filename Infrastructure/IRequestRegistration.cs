@@ -2,16 +2,16 @@
 
 namespace Infrastructure;
 
-public interface IProvidedQuery
+public interface IRequestRegistration
 {
     public Type RequestType { get; }
     public Type HandlerType { get; }
 }
 
-public class ProvidedQuery<THandler, TRequest>
-    : IProvidedQuery
+public class RequestRegistration<THandler, TRequest>
+    : IRequestRegistration
     where THandler : IQueryHandler
-    where TRequest : QueryRequest
+    where TRequest : Request
 {
     public Type RequestType => typeof(TRequest);
     public Type HandlerType => typeof(THandler);

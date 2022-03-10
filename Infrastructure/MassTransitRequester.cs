@@ -1,12 +1,13 @@
 ﻿using MassTransit;
 using Shared;
+using Response = Shared.Response;
 
 namespace Infrastructure;
 
 public class MassTransitRequester<TRequest, TResponse> 
     : IRequester<TRequest, TResponse>
-    where TRequest : QueryRequest
-    where TResponse : QueryResponse
+    where TRequest : Request
+    where TResponse : Response
 {
     private readonly IRequestClient<TRequest> _requestClient;
 

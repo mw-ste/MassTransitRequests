@@ -6,5 +6,5 @@ public interface IContextSetup
 {
     void RegisterServices(IServiceCollection serviceCollection);
 
-    IEnumerable<IProvidedQuery> ProvidedQueries { get; }
+    IEnumerable<IRequestRegistration> RequestRegistrations { get; }
 }

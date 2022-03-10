@@ -21,7 +21,7 @@ builder.Services
     {
         setups.ForEach(setup =>
         {
-            setup.ProvidedQueries.ToList().ForEach(providedQuery =>
+            setup.RequestRegistrations.ToList().ForEach(providedQuery =>
             {
                 x.AddConsumer(providedQuery.HandlerType);
                 x.AddRequestClient(providedQuery.RequestType);
